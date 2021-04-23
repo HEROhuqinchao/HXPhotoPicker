@@ -38,7 +38,8 @@
     [self.cancelBtn setImage:[UIImage hx_imageContentsOfFile:@"hx_photo_edit_clip_cancel"] forState:UIControlStateNormal];
     self.resetBtn.enabled = NO;
     [self.resetBtn setTitle:[NSBundle hx_localizedStringForKey:@"还原"] forState:UIControlStateNormal];
-    
+    /**默认隐藏翻转和旋转*/
+    self.isHiddenRotaio = YES;
     UICollectionViewFlowLayout *flowlayout = (id)self.collectionView.collectionViewLayout;
     flowlayout.minimumInteritemSpacing = 20;
     flowlayout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 10);
@@ -95,6 +96,8 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         HXPhotoEditClippingToolBarHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"HXPhotoEditClippingToolBarHeaderId" forIndexPath:indexPath];
         header.enableRotaio = self.enableRotaio;
+        /**自定义参数*/
+        header.isHiddenRotaio = self.isHiddenRotaio;
         header.didRotateBlock = self.didRotateBlock;
         header.didMirrorHorizontallyBlock = self.didMirrorHorizontallyBlock;
         return header;
@@ -199,6 +202,14 @@
 - (void)setEnableRotaio:(BOOL)enableRotaio {
     _enableRotaio = enableRotaio;
     self.lineView.hidden = !enableRotaio;
+}
+/**自定义隐藏方法*/
+-(void)setIsHiddenRotaio:(BOOL)isHiddenRotaio
+{
+    _isHiddenRotaio = isHiddenRotaio;
+    self.lineView.hidden = isHiddenRotaio;
+    self.rotateBtn.hidden = isHiddenRotaio;
+    self.mirrorHorizontallyBtn.hidden = isHiddenRotaio;
 }
 - (void)layoutSubviews {
     [super layoutSubviews];

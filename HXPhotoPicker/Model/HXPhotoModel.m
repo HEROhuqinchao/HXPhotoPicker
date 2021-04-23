@@ -100,6 +100,7 @@
             }
         }
     }
+    _assetByte = byte;
     return byte;
 }
 - (HXPhotoModelFormat)photoFormat {
@@ -1372,7 +1373,9 @@
                         }
                     }else if ([session status] == AVAssetExportSessionStatusFailed){
                         [timer invalidate];
-                        [self getVideoURLWithSuccess:^(NSURL * _Nullable URL, HXPhotoModelMediaSubType mediaType, BOOL isNetwork, HXPhotoModel * _Nullable model) {
+                        [self getVideoURLWithiCloudProgressHandler:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
+                            
+                        } success:^(NSURL * _Nullable URL, HXPhotoModelMediaSubType mediaType, BOOL isNetwork, HXPhotoModel * _Nullable model) {
                             self.videoURL = videoURL;
                             if (success) {
                                 success(videoURL, self);
@@ -1840,8 +1843,10 @@
     }
 }
 
-- (void)getVideoURLWithSuccess:(HXModelURLHandler _Nullable)success
-                        failed:(HXModelFailedBlock _Nullable)failed {
+/**获取原视频地址 --加入获取进度--自定义*/
+- (void)getVideoURLWithiCloudProgressHandler:(PHAssetImageProgressHandler _Nullable)iCloudProgressHandler
+                                     success:(HXModelURLHandler _Nullable)success
+                                      failed:(HXModelFailedBlock _Nullable)failed{
     if (self.subType == HXPhotoModelMediaSubTypeVideo) {
         if (self.type == HXPhotoModelMediaTypeCameraVideo) {
             if (self.cameraVideoType == HXPhotoModelMediaTypeCameraVideoTypeLocal) {
@@ -1854,7 +1859,7 @@
                 }
             }
         }else {
-            [HXAssetManager requestVideoURL:self.asset completion:^(NSURL * _Nullable videoURL) {
+            [HXAssetManager requestVideoURL:self.asset progressHandler:iCloudProgressHandler completion:^(NSURL * _Nullable videoURL) {
                 __strong typeof(self) strongSelf = self;
                 if (videoURL) {
                     if (success) {

@@ -15,6 +15,9 @@
 /// 当前版本
 #define HXVersion @"3.1.9"
 
+/// 自定义相册名称
+#define CustomAlbumName @"单兵存储"
+
 // 日志输出
 #ifdef DEBUG
 #define NSSLog(FORMAT, ...) fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);

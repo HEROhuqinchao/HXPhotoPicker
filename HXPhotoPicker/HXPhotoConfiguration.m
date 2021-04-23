@@ -39,7 +39,8 @@
     if ([UIScreen mainScreen].bounds.size.width != 320 && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         self.cameraCellShowPreview = YES;
     }
-    self.customAlbumName = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
+#pragma  修改了项目中的自定义项目名
+    self.customAlbumName =  [CustomAlbumName isEqualToString:@""] ? [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey] : CustomAlbumName;
     self.horizontalRowCount = 6;
     self.supportRotation = YES;
     self.pushTransitionDuration = 0.45f;

@@ -325,9 +325,10 @@
                                success:(HXModelURLHandler _Nullable)success
                                 failed:(HXModelFailedBlock _Nullable)failed;
 
-/// 获取原视频地址
-- (void)getVideoURLWithSuccess:(HXModelURLHandler _Nullable)success
-                        failed:(HXModelFailedBlock _Nullable)failed;
+/// 获取原视频地址--加入获取进度--自定义
+- (void)getVideoURLWithiCloudProgressHandler:(PHAssetImageProgressHandler _Nullable)iCloudProgressHandler
+                                     success:(HXModelURLHandler _Nullable)success
+                                      failed:(HXModelFailedBlock _Nullable)failed;
 
 @property (assign, nonatomic) CGFloat previewContentOffsetX;
 

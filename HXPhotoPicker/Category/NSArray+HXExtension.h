@@ -29,6 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param completion 获取失败的不会添加到数组中
 - (void)hx_requestImageDataWithCompletion:(void (^)(NSArray<NSData *> * _Nullable imageDataArray))completion;
 
+/// 获取原视频地址--新增自定义方法
+/// @param completion 获取失败的不会添加到数组中
+- (void)hx_requestAddressWithCompletion:(void (^)(NSArray<NSURL *> * _Nullable videoURL))completion;
+
 @end
 
 NS_ASSUME_NONNULL_END

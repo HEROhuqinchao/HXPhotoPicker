@@ -15,6 +15,7 @@
     if (self) {
         self.maximumLimitTextLength = 0;
         self.supportRotation = YES;
+        self.isHiddenRotaio = YES;//默认隐藏翻转和旋转按钮--自定义
     }
     return self;
 }

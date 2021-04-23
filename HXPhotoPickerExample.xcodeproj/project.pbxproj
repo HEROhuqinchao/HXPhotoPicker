@@ -1407,7 +1407,6 @@
 					};
 					7B7E3E751E4AACD1002234EE = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 36YN45CVLK;
 						ProvisioningStyle = Automatic;
 					};
 					7BD52EBF24FE250E00AE3D7C = {
@@ -1977,7 +1976,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 36YN45CVLK;
+				DEVELOPMENT_TEAM = JV9837GRRV;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2009,7 +2008,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 36YN45CVLK;
+				DEVELOPMENT_TEAM = JV9837GRRV;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Objective-C/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

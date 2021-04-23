@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class HXPhotoEditClippingToolBarRotaioModel;
 @interface HXPhotoEditClippingToolBar : UIView
 @property (assign, nonatomic) BOOL enableRotaio;
+/**自定义*/
+@property (assign, nonatomic) BOOL isHiddenRotaio;
 @property (strong, nonatomic) UIColor *themeColor;
 @property (assign, nonatomic) BOOL enableReset;
 @property (copy, nonatomic) void (^ didBtnBlock)(NSInteger tag);
@@ -31,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HXPhotoEditClippingToolBarHeader : UICollectionReusableView
 @property (assign, nonatomic) BOOL enableRotaio;
+/**自定义*/
+@property (assign, nonatomic) BOOL isHiddenRotaio;
 @property (copy, nonatomic) void (^ didRotateBlock)(void);
 @property (copy, nonatomic) void (^ didMirrorHorizontallyBlock)(void);
 @end

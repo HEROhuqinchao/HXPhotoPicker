@@ -3343,7 +3343,12 @@ HX_PhotoEditViewControllerDelegate
 - (void)didOriginalClick:(UIButton *)button {
     button.selected = !button.selected;
     [self requestPhotosBytes];
-    [self.manager setOriginal:button.selected]; 
+    /**自定义方法*/
+    if (button.selected) {//压缩
+        [self.manager setOriginal:NO];
+    }else{
+        [self.manager setOriginal:YES];
+    }
 }
 - (void)layoutSubviews {
     [super layoutSubviews];

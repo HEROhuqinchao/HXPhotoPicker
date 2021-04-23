@@ -290,6 +290,8 @@
 - (void)requestPhotosBytesWithCompletion:(void (^)(NSString *, NSUInteger))completion {
     [self.dataOperationQueue cancelAllOperations];
     self.selectPhotoTotalDataLengths = 0;
+    /**自定义方法*/
+    self.selectPhotoTotalDataLengthsForStr = @"0";
     if (!self.selectedPhotos.count) {
         if (completion) completion(nil, 0);
         return;
@@ -311,6 +313,7 @@
                     if (assetCount >= weakSelf.selectedPhotos.count) {
                         weakSelf.selectPhotoTotalDataLengths = &(dataLength);
                         NSString *bytes = [HXPhotoTools getBytesFromDataLength:dataLength];
+                        weakSelf.selectPhotoTotalDataLengthsForStr = bytes;
                         dispatch_async(dispatch_get_main_queue(), ^{
                             if (completion) completion(bytes, dataLength);
                         });
@@ -321,6 +324,7 @@
                     if (assetCount >= weakSelf.selectedPhotos.count) {
                         weakSelf.selectPhotoTotalDataLengths = &(dataLength);
                         NSString *bytes = [HXPhotoTools getBytesFromDataLength:dataLength];
+                        weakSelf.selectPhotoTotalDataLengthsForStr = bytes;
                         dispatch_async(dispatch_get_main_queue(), ^{
                             if (completion) completion(bytes, dataLength);
                         });
@@ -332,6 +336,7 @@
                 if (assetCount >= weakSelf.selectedPhotos.count) {
                     weakSelf.selectPhotoTotalDataLengths = &(dataLength);
                     NSString *bytes = [HXPhotoTools getBytesFromDataLength:dataLength];
+                    weakSelf.selectPhotoTotalDataLengthsForStr = bytes;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (completion) completion(bytes, dataLength);
                     });
@@ -874,9 +879,10 @@
     }
 }
 - (HXPhotoManagerVideoSelectedType)videoSelectedType {
-    if (self.type == HXPhotoManagerSelectedTypePhotoAndVideo && self.configuration.videoMaxNum == 1 && !self.configuration.selectTogether) {
-        return HXPhotoManagerVideoSelectedTypeSingle;
-    }
+#warning 此处修改单选支持选择按钮
+//    if (self.type == HXPhotoManagerSelectedTypePhotoAndVideo && self.configuration.videoMaxNum == 1 && !self.configuration.selectTogether) {
+//        return HXPhotoManagerVideoSelectedTypeSingle;
+//    }
     return HXPhotoManagerVideoSelectedTypeNormal;
 }
 - (BOOL)videoCanSelected {
@@ -1211,6 +1217,10 @@
 - (BOOL)afterOriginal {
     return self.endIsOriginal;
 }
+/**自定义方法*/
+- (void)setAfterOriginal:(BOOL)afterOriginal{
+    self.endIsOriginal = afterOriginal;
+}
 - (void)afterSelectedArraySwapPlacesWithFromModel:(HXPhotoModel *)fromModel fromIndex:(NSInteger)fromIndex toModel:(HXPhotoModel *)toModel toIndex:(NSInteger)toIndex {
     [self.endSelectedList removeObject:toModel];
     [self.endSelectedList insertObject:toModel atIndex:toIndex];
@@ -1480,11 +1490,14 @@
 - (void)removeAllTempCameraAssetModel {
     self.tempCameraAssetModels = nil;
 }
+/**
+ 取消选择
+ */
 - (void)cancelBeforeSelectedList {
     [self.selectedList removeAllObjects];
     [self.selectedPhotos removeAllObjects];
     [self.selectedVideos removeAllObjects];
-    self.isOriginal = NO;
+    //    self.isOriginal = YES;//默认选中原图
     self.photosTotalBtyes = nil;
     [self.selectedCameraList removeAllObjects];
     [self.selectedCameraVideos removeAllObjects];
@@ -1505,6 +1518,9 @@
         i++;
     }
 }
+/**
+ 清空所有已选数组
+ */
 - (void)clearSelectedList {
     [self.endSelectedList removeAllObjects];
     [self.endCameraPhotos removeAllObjects];
@@ -1519,7 +1535,7 @@
     [self.endSelectedVideos removeAllObjects];
     [self.endSelectedPhotos removeAllObjects];
     [self.endSelectedVideos removeAllObjects];
-    self.endIsOriginal = NO;
+    //    self.endIsOriginal = YES;//默认选中原图
     self.endPhotosTotalBtyes = nil;
     
     [self.selectedList removeAllObjects];
@@ -1535,7 +1551,7 @@
     [self.selectedVideos removeAllObjects];
     [self.selectedPhotos removeAllObjects];
     [self.selectedVideos removeAllObjects];
-    self.isOriginal = NO;
+    //    self.isOriginal = YES;//默认选中原图
     self.photosTotalBtyes = nil;
     
     [self.iCloudUploadArray removeAllObjects];

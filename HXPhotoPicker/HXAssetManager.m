@@ -99,8 +99,10 @@
     }];
     return resultImage;
 }
-+ (void)requestVideoURL:(PHAsset *)asset completion:(void (^)(NSURL * _Nullable))completion {
-    [self requestAVAssetForAsset:asset networkAccessAllowed:YES progressHandler:nil completion:^(AVAsset * _Nonnull avAsset, AVAudioMix * _Nonnull audioMix, NSDictionary * _Nonnull info) {
++ (void)requestVideoURL:(PHAsset *)asset progressHandler:(PHAssetImageProgressHandler)progressHandler completion:(void (^)(NSURL * _Nullable))completion {
+    [self requestAVAssetForAsset:asset networkAccessAllowed:YES progressHandler:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
+        progressHandler(progress,error,stop,info);
+    } completion:^(AVAsset * _Nonnull avAsset, AVAudioMix * _Nonnull audioMix, NSDictionary * _Nonnull info) {
 //        if ([avAsset isKindOfClass:AVURLAsset.class]) {
 //            if (completion) {
 //                completion([(AVURLAsset *)avAsset URL]);

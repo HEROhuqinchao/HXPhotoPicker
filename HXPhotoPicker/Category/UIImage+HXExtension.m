@@ -163,6 +163,49 @@
     return scaledImage;
 }
 
+//新增自定义方法，压缩图片自定义压缩
+- (UIImage *)hx_scaleImagetoWidth:(float)width height:(float)height {
+    float MAX_LONGER = 1920;
+    float  MAX_SHORTER = 1080;
+    float  RATIO_16_9 = MAX_LONGER / MAX_SHORTER;
+    float  RATIO_9_16 = MAX_SHORTER / MAX_LONGER;
+    if (MAX(width, height) > MAX_LONGER || MIN(width, height) > MAX_SHORTER) {
+        // 需要压缩
+        float newWidth;
+        float newHeight;
+        // 宽高比
+        float ratio = width / height;
+        // 判断方向
+        if (width >= height) {
+            // 确定是约束width还是height
+            if (ratio >= RATIO_16_9) { // 约束width
+                newWidth = MAX_LONGER;
+                newHeight = (MAX_LONGER / ratio);
+            } else { // 约束height
+                newHeight = MAX_SHORTER;
+                newWidth = (MAX_SHORTER * ratio);
+            }
+        } else {
+            if (ratio >= RATIO_9_16) { // 约束width
+                newWidth = MAX_SHORTER;
+                newHeight = (MAX_SHORTER / ratio);
+            } else { // 约束height
+                newHeight = MAX_LONGER;
+                newWidth = (MAX_LONGER * ratio);
+            }
+        }
+        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
+        
+        [self drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
+        UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return scaledImage;
+    } else {
+        return self;
+    }
+}
+
 - (UIImage *)hx_rotationImage:(UIImageOrientation)orient {
     CGRect bnds = CGRectZero;
     UIImage* copy = nil;

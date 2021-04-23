@@ -51,7 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)originImageForAsset:(PHAsset *)asset;
 
 /// 请求视频地址
+/// @param progressHandler 存在iCloud上并且允许了网络请求才有回调，不在主线程上执行--自定义方法加入进度
 + (void)requestVideoURL:(PHAsset *)asset
+        progressHandler:(PHAssetImageProgressHandler _Nullable)progressHandler
              completion:(void (^ _Nullable)(NSURL * _Nullable videoURL))completion;
 
 /// 请求获取image

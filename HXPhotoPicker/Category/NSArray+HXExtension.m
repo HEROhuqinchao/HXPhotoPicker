@@ -366,4 +366,43 @@
     }
 }
 
+/// 获取原视频地址--新增自定义方法
+/// @param completion 获取失败的不会添加到数组中
+- (void)hx_requestAddressWithCompletion:(void (^)(NSArray<NSURL *> * _Nullable videoURL))completion{
+    if (![self hx_detection] || !self.count) {
+        if (completion) {
+            completion(nil);
+        }
+        if (HXShowLog) NSSLog(@"数组里装的不是HXPhotoModel对象或者为空");
+        return;
+    }
+    NSMutableArray  *array = [NSMutableArray array];
+//    for (int i = 0 ; i < self.count; i++) {
+//        HXPhotoModel *model = self[i];
+//        [dict setValue:[NSError errorWithDomain:@"获取失败" code:99999 userInfo:nil] forKey:model.selectIndexStr];
+//    }
+    __block NSInteger index = 0;
+    NSInteger count = self.count;
+    for (HXPhotoModel *model in self) {
+        [model getVideoURLWithiCloudProgressHandler:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
+            NSLog(@"进度是这样的：%f",progress);
+                    } success:^(NSURL * _Nullable URL, HXPhotoModelMediaSubType mediaType, BOOL isNetwork, HXPhotoModel * _Nullable model) {
+                        [array addObject:URL];
+                        index++;
+                        if (index == count) {
+                            if (completion) {
+                                completion(array);
+                            }
+                        }
+                    } failed:^(NSDictionary * _Nullable info, HXPhotoModel * _Nullable model) {
+                        [array addObject:@""];
+                        index++;
+                        if (index == count) {
+                            if (completion) {
+                                completion(array);
+                            }
+                        }
+                    }];
+    }
+}
 @end

@@ -19,6 +19,8 @@
 - (UIImage *)hx_normalizedImage;
 
 - (UIImage *)hx_scaleImagetoScale:(float)scaleSize;
+///新增自定义方法
+- (UIImage *)hx_scaleImagetoWidth:(float)width height:(float)height;
 - (UIImage *)hx_rotationImage:(UIImageOrientation)orient;
 
 + (UIImage *)hx_imageWithColor:(UIColor *)color havingSize:(CGSize)size;

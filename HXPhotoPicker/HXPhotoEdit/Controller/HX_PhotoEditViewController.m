@@ -900,6 +900,8 @@
         }else {
             _clippingToolBar.enableRotaio = YES;
         }
+#warning 自定义
+        _clippingToolBar.isHiddenRotaio = self.configuration.isHiddenRotaio;
         _clippingToolBar.themeColor = self.configuration.themeColor;
         _clippingToolBar.userInteractionEnabled = NO;
         _clippingToolBar.alpha = 0;

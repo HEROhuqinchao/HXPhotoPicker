@@ -137,8 +137,14 @@
 /// return 任意字符串 则会提醒返回的字符串，并且禁止选择
 @property (copy, nonatomic) NSString * (^ shouldSelectModel)(HXPhotoModel *model);
 
+/**自定义方法*/
 /// 已选照片数据的总大小
 @property (assign, nonatomic) NSUInteger *selectPhotoTotalDataLengths;
+/// 已选照片数据的总大小-String
+@property (assign, nonatomic) NSString *selectPhotoTotalDataLengthsForStr;
+
+
+
 @property (strong, nonatomic) NSOperationQueue *dataOperationQueue;
 
 #pragma mark - < 关于选择完成之前的一些方法>
